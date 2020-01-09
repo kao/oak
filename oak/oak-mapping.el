@@ -13,6 +13,7 @@
 (def-prefix! "b" "buffer")
 (def-key!
   "TAB" 'mode-line-other-buffer
+  "SPC" 'ivy-switch-buffer
   "b e" 'eval-buffer
   "b b" 'ivy-switch-buffer
   "b d" 'kill-current-buffer
@@ -20,7 +21,6 @@
 
 (def-prefix! "c" "comment")
 (def-key!
-  "c c" 'comment-dwim
   "c l" 'comment-line)
 
 (def-prefix! "f" "files")
@@ -53,6 +53,5 @@
   "w -" 'split-window-below
   "w d" 'delete-window
   "w =" 'balance-windows)
-
 
 (provide 'oak-mapping)

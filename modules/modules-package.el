@@ -39,10 +39,8 @@
     :evil-keys (oak-leader)
     :evil-states (normal motion visual)))
 
-;;;; buffer
 (use-package unkillable-scratch)
 
-;;;; EVIL
 (use-package evil
   :config
   (evil-mode)
@@ -50,7 +48,10 @@
   (define-key evil-insert-state-map (kbd "C-e") 'end-of-line)
   (define-key evil-insert-state-map (kbd "C-a") 'beginning-of-line)
   (define-key evil-normal-state-map (kbd "C-e") 'end-of-line)
-  (define-key evil-normal-state-map (kbd "C-a") 'beginning-of-line))
+  (define-key evil-normal-state-map (kbd "C-a") 'beginning-of-line)
+  (fset 'evil-visual-update-x-selection 'ignore)
+  ;; (setq x-select-enable-clipboard nil)
+  )
 
 (use-package evil-leader
   :after evil
@@ -121,16 +122,6 @@
 (use-package ripgrep)
 (use-package avy)
 (use-package dumb-jump)
-
-(use-package lsp-mode
-  :hook
-  (go-mode . lsp-deferred)
-  :commands
-  (lsp lsp-deferred)
-  :config
-  (require 'lsp-ui)
-  (add-hook 'lsp-mode-hook 'lsp-ui-mode))
-
 (use-package company
   :ensure t
   :diminish company-mode
@@ -142,28 +133,30 @@
   (setq company-begin-commands '(self-insert-command)) ; start autocompletion only after typing
   )
 
+(use-package lsp-mode
+  :hook
+  (go-mode . lsp-deferred)
+  :commands
+  (lsp lsp-deferred)
+  :config
+  (require 'lsp-ui)
+  (add-hook 'lsp-mode-hook 'lsp-ui-mode))
+
 (use-package company-lsp :commands company-lsp)
 
-(use-package flycheck
-  :ensure t
-  :init (global-flycheck-mode))
+;; (use-package flycheck
+;;   :init (global-flycheck-mode))
 
 ;;;; GOLANG
 (use-package go-mode
-  :ensure t
   :config
   (require 'company)
   (require 'company-go)
-  (add-hook 'go-mode-hook (lambda ()
-			    (set (make-local-variable 'company-backends) '(company-go))
-			    (company-mode)))
-  (require 'go-eldoc)
-  (add-hook 'before-save-hook 'gofmt-before-save)
-  (add-hook 'completion-at-point-functions 'go-complete-at-point)
   (setq gofmt-command "goimports")
-  :hook
-  (go-mode . go-eldoc-setup)
-  (go-mode . flycheck-mode))
+  (add-hook 'before-save-hook 'gofmt-before-save)
+  ;; (add-hook 'completion-at-point-functions 'go-complete-at-point)
+  (custom-set-default 'lsp-clients-go-server "gopls")
+  )
 
 (use-package projectile
   :ensure t
