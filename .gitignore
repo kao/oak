@@ -7,3 +7,4 @@ smex-items
 custom.el
 .cache/
 elpa/
+.lsp*

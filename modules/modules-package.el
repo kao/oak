@@ -31,9 +31,7 @@
   :config
   (popwin-mode))
 
-(use-package flx
-  :config
-  (setq gc-cons-threshold 20000000))
+(use-package flx)
 
 (use-package bind-map
   :config
@@ -124,6 +122,15 @@
 (use-package avy)
 (use-package dumb-jump)
 
+(use-package lsp-mode
+  :hook
+  (go-mode . lsp-deferred)
+  :commands
+  (lsp lsp-deferred)
+  :config
+  (require 'lsp-ui)
+  (add-hook 'lsp-mode-hook 'lsp-ui-mode))
+
 (use-package company
   :ensure t
   :diminish company-mode
@@ -134,6 +141,8 @@
   (setq company-echo-delay 0)                          ; remove annoying blinking
   (setq company-begin-commands '(self-insert-command)) ; start autocompletion only after typing
   )
+
+(use-package company-lsp :commands company-lsp)
 
 (use-package flycheck
   :ensure t
@@ -166,7 +175,7 @@
   ;; no shame
   (global-set-key (kbd "M-t") 'counsel-projectile-find-file)
 
-  (projectile-global-mode)
+  (projectile-mode)
   (counsel-projectile-mode))
 
 (provide 'modules-package)
