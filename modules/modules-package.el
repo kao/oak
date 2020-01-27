@@ -41,6 +41,11 @@
 
 (use-package unkillable-scratch)
 
+(use-package golden-ratio
+  :diminish golden-ratio-mode
+  :config
+  (golden-ratio-mode t))
+
 (use-package evil
   :config
   (evil-mode)
@@ -88,6 +93,12 @@
 
   (global-whitespace-mode))
 
+(use-package smartparens
+  :diminish smartparens-mode
+  :config
+  (smartparens-global-mode)
+  )
+
 (use-package expand-region
   :config
   (setq expand-region-contract-fast-key "v"
@@ -127,10 +138,10 @@
   :diminish company-mode
   :config
   (setq company-minimum-prefix-length 1)
-  (setq company-tooltip-limit 20)                      ; bigger popup window
-  (setq company-idle-delay 0)                         ; decrease delay before autocompletion popup shows
-  (setq company-echo-delay 0)                          ; remove annoying blinking
-  (setq company-begin-commands '(self-insert-command)) ; start autocompletion only after typing
+  (setq company-tooltip-limit 20)
+  (setq company-idle-delay 2)
+  (setq company-echo-delay 0)
+  (setq company-begin-commands '(self-insert-command))
   )
 
 (use-package lsp-mode
@@ -154,7 +165,6 @@
   (require 'company-go)
   (setq gofmt-command "goimports")
   (add-hook 'before-save-hook 'gofmt-before-save)
-  ;; (add-hook 'completion-at-point-functions 'go-complete-at-point)
   (custom-set-default 'lsp-clients-go-server "gopls")
   )
 
