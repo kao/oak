@@ -8,6 +8,4 @@
 (defvar oak-base-map (make-sparse-keymap)
   "Base keymap for all oak leader key commands.")
 
-
 (provide 'oak-variable)
-

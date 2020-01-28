@@ -1,5 +1,8 @@
+(require 'use-package)
+
 (use-package exec-path-from-shell
-  :init
+  :ensure t
+  :config
   (exec-path-from-shell-initialize)
   (exec-path-from-shell-copy-env "GOPATH"))
 
@@ -24,9 +27,9 @@
 (set-selection-coding-system 'utf-8)
 (prefer-coding-system 'utf-8)
 
+;; (setq ns-pop-up-frames nil)
 (setq make-backup-files nil)
 (setq auto-save-default nil)
-(setq ns-pop-up-frames nil)
 ;; place auto-save files in /tmp
 (setq backup-directory-alist
   `((".*" . ,temporary-file-directory)))
@@ -38,4 +41,16 @@
       use-dialog-box nil
       visible-bell t)
 
-(provide 'modules-system)
+;; auto refresh buffers
+(global-auto-revert-mode 1)
+;; also auto refresh dired, but be quiet about it
+(setq global-auto-revert-non-file-buffers t)
+(setq auto-revert-verbose nil)
+
+;; initial frame size
+(add-to-list 'default-frame-alist '(left . 550))
+(add-to-list 'default-frame-alist '(top . 0))
+(add-to-list 'default-frame-alist '(height . 300))
+(add-to-list 'default-frame-alist '(width . 400))
+
+(provide 'oak-bootstrap)

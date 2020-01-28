@@ -1,3 +1,13 @@
+;; buffer handling
+(global-set-key (kbd "M-u") 'previous-buffer)
+(global-set-key (kbd "M-i") 'next-buffer)
+
+;; window handling
+(global-set-key (kbd "M-k") 'windmove-up)
+(global-set-key (kbd "M-j") 'windmove-down)
+(global-set-key (kbd "M-h") 'windmove-left)
+(global-set-key (kbd "M-l") 'windmove-right)
+
 ;; macros
 (defmacro def-prefix! (key title)
   (which-key-add-key-based-replacements (concat oak-leader " " key) title))
