@@ -27,7 +27,7 @@
 (set-selection-coding-system 'utf-8)
 (prefer-coding-system 'utf-8)
 
-;; (setq ns-pop-up-frames nil)
+(setq ns-pop-up-frames nil)
 (setq make-backup-files nil)
 (setq auto-save-default nil)
 ;; place auto-save files in /tmp
