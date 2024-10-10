@@ -6,5 +6,10 @@ alias vim='nvim'
 
 alias reload!='source ~/.zshrc'
 
+alias ls='eza -lh --group-directories-first --icons --hyperlink'
+alias lsa='ls -a'
+alias lt='eza --tree --level=2 --long --icons --git'
+alias lta='lt -a'
+
 eval "$(zoxide init --cmd j zsh)"
 eval "$(starship init zsh)"
