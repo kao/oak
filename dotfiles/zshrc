@@ -1,5 +1,9 @@
 eval "$(/opt/homebrew/bin/brew shellenv)"
 
+export LANG=en_US.UTF-8
+export PATH="/opt/homebrew/opt/libpq/bin:$PATH"
+export PATH="/opt/homebrew/bin:$PATH"
+
 source /opt/homebrew/opt/asdf/libexec/asdf.sh
 source <(fzf --zsh)
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
@@ -18,6 +22,11 @@ alias lta='lt -a'
 
 alias fvi='vim $(fzf --preview="bat --color=always {}")'
 alias cat='bat'
+
+alias reload!='source ~/.zshrc'
+
+# pennylane related
+source ~/code/pennylane/jeancaisse/docker.env
 
 eval "$(zoxide init --cmd j zsh)"
 eval "$(starship init zsh)"

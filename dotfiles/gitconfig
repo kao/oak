@@ -52,3 +52,6 @@
 
 [github]
   user = kao
+
+[includeIf "gitdir:~/code/pennylane/"]
+  path = ~/code/pennylane/.gitconfig
