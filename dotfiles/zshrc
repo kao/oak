@@ -32,7 +32,9 @@ alias cat='bat'
 alias reload!='source ~/.zshrc'
 
 # pennylane related
-source ~/code/pennylane/jeancaisse/docker.env
+if [ -f ~/code/pennylane/jeancaisse/docker.env ]; then
+    source ~/code/pennylane/jeancaisse/docker.env
+fi
 
 eval "$(zoxide init --cmd j zsh)"
 eval "$(starship init zsh)"
