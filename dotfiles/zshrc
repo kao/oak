@@ -34,6 +34,7 @@ alias reload!='source ~/.zshrc'
 # pennylane related
 if [ -f ~/code/pennylane/jeancaisse/docker.env ]; then
     source ~/code/pennylane/jeancaisse/docker.env
+    export DD_TRACE_ENABLED=false
 fi
 
 eval "$(zoxide init --cmd j zsh)"
