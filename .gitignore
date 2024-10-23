@@ -1,2 +1,9 @@
 config/raycast/
 config/iterm2/
+
+tags
+test.sh
+.luarc.json
+
+spell/
+lazy-lock.json
