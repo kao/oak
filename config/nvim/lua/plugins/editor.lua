@@ -53,7 +53,23 @@ return {
     'ibhagwan/fzf-lua',
     dependencies = { 'nvim-tree/nvim-web-devicons' },
     config = function()
-      require('fzf-lua').setup {}
+      require('fzf-lua').setup {
+        'fzf-native',
+        fzf_colors = true,
+        winopts = {
+          preview = {
+            default = 'bat',
+            layout = 'vertical',
+            vertical = 'down:85%',
+          },
+        },
+        keymap = {
+          fzf = {
+            ['ctrl-f'] = 'preview-page-down',
+            ['ctrl-b'] = 'preview-page-up',
+          },
+        },
+      }
 
       local maps = vim.keymap
       if vim.fn.executable 'git' == 1 then
@@ -115,6 +131,26 @@ return {
         end, { desc = 'Find words' })
       end
       -- maps.n["<Leader>ls"] = { function() require("fzf-lua").lsp_document_symbols() end, desc = "Search symbols" }
+
+      function GrepInDirectory(default_word)
+        local input_dir = vim.fn.input('Directory to search: ', vim.fn.getcwd(), 'dir')
+        if input_dir == '' then
+          return
+        end
+
+        local word = default_word or vim.fn.input 'Search for: '
+        if word == '' then
+          return
+        end
+
+        require('fzf-lua').grep {
+          search = word,
+          cwd = input_dir,
+          prompt = 'Grep (' .. input_dir .. '): ',
+        }
+      end
+      maps.set('n', '<leader>fd', ':lua GrepInDirectory()<CR>', { desc = 'Find in directory' })
+      maps.set('n', '<leader>fW', ":lua GrepInDirectory(vim.fn.expand('<cword>'))<CR>", { desc = 'Find current word in directory' })
     end,
   },
 }
