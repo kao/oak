@@ -1,4 +1,5 @@
 return {
+  { 'nvim-lua/plenary.nvim' },
   {
     'karb94/neoscroll.nvim',
     config = function()
@@ -151,6 +152,12 @@ return {
       end
       maps.set('n', '<leader>fd', ':lua GrepInDirectory()<CR>', { desc = 'Find in directory' })
       maps.set('n', '<leader>fW', ":lua GrepInDirectory(vim.fn.expand('<cword>'))<CR>", { desc = 'Find current word in directory' })
+
+      -- Load the custom file browser plugin
+      -- local file_browser = require("fzf-lua-file-browser")
+
+      -- Add a key mapping to browse files
+      vim.api.nvim_set_keymap('n', '<leader>ed', ":lua require('fzf-lua-file-browser').browse()<CR>", { noremap = true, silent = true })
     end,
   },
 }
