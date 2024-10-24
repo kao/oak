@@ -35,6 +35,8 @@ alias reload!='source ~/.zshrc'
 if [ -f ~/code/pennylane/jeancaisse/docker.env ]; then
     source ~/code/pennylane/jeancaisse/docker.env
     export DD_TRACE_ENABLED=false
+    # avoid having to type the password
+    ssh-add --apple-load-keychain > /dev/null 2>&1
 fi
 
 eval "$(zoxide init --cmd j zsh)"
