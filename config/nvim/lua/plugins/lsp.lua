@@ -11,7 +11,9 @@ return {
       },
     },
   },
+
   { 'Bilal2453/luvit-meta', lazy = true },
+
   {
     -- Main LSP Configuration
     'neovim/nvim-lspconfig',
@@ -164,6 +166,7 @@ return {
       --  - capabilities (table): Override fields in capabilities. Can be used to disable certain LSP features.
       --  - settings (table): Override the default settings passed when initializing the server.
       --        For example, to see the options for `lua_ls`, you could go to: https://luals.github.io/wiki/settings/
+      local lspconfig = require 'lspconfig'
       local servers = {
         -- clangd = {},
         -- gopls = {},
@@ -191,6 +194,26 @@ return {
               -- diagnostics = { disable = { 'missing-fields' } },
             },
           },
+        },
+
+        ruby_lsp = {
+          cmd = { 'ruby-lsp' },
+          filetypes = { 'ruby' },
+          root_dir = lspconfig.util.root_pattern('Gemfile', '.git', '.ruby-version', '.tools-version'),
+          init_options = {
+            formatter = 'rubocop',
+          },
+          capabilities = require('cmp_nvim_lsp').default_capabilities(),
+          on_attach = function(client, bufnr)
+            if client.server_capabilities.documentFormattingProvider then
+              vim.api.nvim_create_autocmd('BufWritePre', {
+                buffer = bufnr,
+                callback = function()
+                  vim.lsp.buf.format()
+                end,
+              })
+            end
+          end,
         },
       }
 
