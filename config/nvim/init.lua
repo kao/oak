@@ -98,6 +98,8 @@ vim.keymap.set('n', '<C-u>', '<cmd>bprevious<cr>', { desc = 'Previous buffer' })
 -- Escape in insert mode with jk
 vim.keymap.set('i', 'jk', '<Esc>')
 
+require 'config/keymaps'
+
 -- [[ Basic Autocommands ]]
 --  See `:help lua-guide-autocommands`
 
