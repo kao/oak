@@ -200,16 +200,6 @@ require('lazy').setup({
     'stevearc/conform.nvim',
     event = { 'BufWritePre' },
     cmd = { 'ConformInfo' },
-    keys = {
-      {
-        '<leader>f',
-        function()
-          require('conform').format { async = true, lsp_format = 'fallback' }
-        end,
-        mode = '',
-        desc = '[F]ormat buffer',
-      },
-    },
     opts = {
       notify_on_error = false,
       format_on_save = function(bufnr)
@@ -224,7 +214,7 @@ require('lazy').setup({
           lsp_format_opt = 'fallback'
         end
         return {
-          timeout_ms = 500,
+          timeout_ms = 1000,
           lsp_format = lsp_format_opt,
         }
       end,
@@ -238,6 +228,15 @@ require('lazy').setup({
         ruby = { 'rubocop' },
       },
     },
+    config = function()
+      require('conform').setup {
+        formatters = {
+          rubocop = {
+            args = { '-a', '-f', 'quiet', '--stderr', '--stdin', '$FILENAME' },
+          },
+        },
+      }
+    end,
   },
 
   { -- Autocompletion
