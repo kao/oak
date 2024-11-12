@@ -1,19 +1,31 @@
 return {
   { 'nvim-lua/plenary.nvim' },
 
+  -- {
+  --   'karb94/neoscroll.nvim',
+  --   config = function()
+  --     require('neoscroll').setup {
+  --       mappings = {
+  --         '<C-b>',
+  --         '<C-f>',
+  --         'zt',
+  --         'zz',
+  --         'zb',
+  --       },
+  --     }
+  --   end,
+  -- },
+  --
   {
-    'karb94/neoscroll.nvim',
-    config = function()
-      require('neoscroll').setup {
-        mappings = {
-          '<C-b>',
-          '<C-f>',
-          'zt',
-          'zz',
-          'zb',
-        },
+    'nvim-lualine/lualine.nvim',
+    dependencies = { 'nvim-tree/nvim-web-devicons' },
+    config = function ()
+      require('lualine').setup {
+        options = {
+          theme = "catppuccin"
+        }
       }
-    end,
+    end
   },
 
   {
@@ -49,14 +61,6 @@ return {
           lsp_doc_border = false, -- add a border to hover docs and signature help
         },
       }
-    end,
-  },
-
-  {
-    'nvim-lualine/lualine.nvim',
-    dependencies = { 'nvim-tree/nvim-web-devicons' },
-    config = function ()
-      require('lualine').setup({})
     end,
   },
 
