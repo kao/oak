@@ -6,4 +6,4 @@ test.sh
 .luarc.json
 
 spell/
-lazy-lock.json
+config/nvim/lazy-lock.json
