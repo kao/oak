@@ -1,5 +1,6 @@
 return {
   { 'nvim-lua/plenary.nvim' },
+
   {
     'karb94/neoscroll.nvim',
     config = function()
@@ -14,6 +15,7 @@ return {
       }
     end,
   },
+
   {
     'folke/noice.nvim',
     event = 'VeryLazy',
@@ -47,6 +49,14 @@ return {
           lsp_doc_border = false, -- add a border to hover docs and signature help
         },
       }
+    end,
+  },
+
+  {
+    'nvim-lualine/lualine.nvim',
+    dependencies = { 'nvim-tree/nvim-web-devicons' },
+    config = function ()
+      require('lualine').setup({})
     end,
   },
 
