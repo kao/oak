@@ -5,6 +5,7 @@
 [core]
   excludesfile = /Users/kao/.gitignore_global
   editor = vi
+  ignorecase = false
 
 [color]
   ui = true
