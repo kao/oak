@@ -1,7 +1,3 @@
--- Adds git related signs to the gutter, as well as utilities for managing changes
--- NOTE: gitsigns is already included in init.lua but contains only the base
--- config. This will add also the recommended keymaps.
-
 return {
   {
     'kdheepak/lazygit.nvim',
@@ -24,9 +20,16 @@ return {
     },
   },
 
-  {
+  { -- Adds git related signs to the gutter, as well as utilities for managing changes
     'lewis6991/gitsigns.nvim',
     opts = {
+      signs = {
+        add = { text = '+' },
+        change = { text = '~' },
+        delete = { text = '_' },
+        topdelete = { text = '‾' },
+        changedelete = { text = '~' },
+      },
       on_attach = function(bufnr)
         local gitsigns = require 'gitsigns'
 
@@ -78,5 +81,21 @@ return {
         map('n', '<leader>tD', gitsigns.toggle_deleted, { desc = '[T]oggle git show [D]eleted' })
       end,
     },
+  },
+
+  {
+    "f-person/git-blame.nvim",
+    event = "VeryLazy",
+    opts = {
+      enabled = true,
+      message_template = " <date> • <author> • <summary> • <<sha>>",
+      date_format = "%m-%d-%Y %H:%M:%S",
+      virtual_text_column = 1,
+      gitblame_schedule_event = 'CursorHold',
+      gitblame_clear_event = 'CursorHoldI'
+    },
+    keys = {
+      { '<leader>go', '<cmd>GitBlameOpenFileURL<cr>', desc = 'Open file on Github' },
+    }
   },
 }
