@@ -1,6 +1,5 @@
 return {
   { 'nvim-lua/plenary.nvim' },
-
   -- {
   --   'karb94/neoscroll.nvim',
   --   config = function()
@@ -17,9 +16,16 @@ return {
   -- },
   --
   {
+    'nvim-focus/focus.nvim',
+    config = function()
+      require("focus").setup()
+    end
+  },
+
+  {
     'nvim-lualine/lualine.nvim',
     dependencies = { 'nvim-tree/nvim-web-devicons' },
-    config = function ()
+    config = function()
       require('lualine').setup {
         options = {
           theme = "catppuccin"
@@ -54,11 +60,11 @@ return {
         },
         -- you can enable a preset for easier configuration
         presets = {
-          bottom_search = true, -- use a classic bottom cmdline for search
-          command_palette = true, -- position the cmdline and popupmenu together
+          bottom_search = true,         -- use a classic bottom cmdline for search
+          command_palette = true,       -- position the cmdline and popupmenu together
           long_message_to_split = true, -- long messages will be sent to a split
-          inc_rename = false, -- enables an input dialog for inc-rename.nvim
-          lsp_doc_border = false, -- add a border to hover docs and signature help
+          inc_rename = false,           -- enables an input dialog for inc-rename.nvim
+          lsp_doc_border = false,       -- add a border to hover docs and signature help
         },
       }
     end,
@@ -164,14 +170,17 @@ return {
           prompt = 'Grep (' .. input_dir .. '): ',
         }
       end
+
       maps.set('n', '<leader>fd', ':lua GrepInDirectory()<CR>', { desc = 'Find in directory' })
-      maps.set('n', '<leader>fW', ":lua GrepInDirectory(vim.fn.expand('<cword>'))<CR>", { desc = 'Find current word in directory' })
+      maps.set('n', '<leader>fW', ":lua GrepInDirectory(vim.fn.expand('<cword>'))<CR>",
+        { desc = 'Find current word in directory' })
 
       -- Load the custom file browser plugin
       -- local file_browser = require("fzf-lua-file-browser")
 
       -- Add a key mapping to browse files
-      vim.api.nvim_set_keymap('n', '<leader>ed', ":lua require('fzf-lua-file-browser').browse()<CR>", { noremap = true, silent = true })
+      vim.api.nvim_set_keymap('n', '<leader>ed', ":lua require('fzf-lua-file-browser').browse()<CR>",
+        { noremap = true, silent = true })
     end,
   },
 }
