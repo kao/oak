@@ -38,6 +38,9 @@ style = "Regular"
 
 [keyboard]
 bindings = [
-    { key = "Right", mods = "Alt", chars = "\u001BF" },
-    { key = "Left",  mods = "Alt", chars = "\u001BB" },
+{ key = "Right", mods = "Alt",       chars = "\u001BF" },
+{ key = "Left",  mods = "Alt",       chars = "\u001BB" },
+{ key = "E",     mods = "Alt",       chars = "é"       },
+{ key = "E",     mods = "Alt|Shift", chars = "è"       },
+{ key = "A",     mods = "Alt",       chars = "à"       },
 ]
