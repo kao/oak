@@ -5,13 +5,14 @@
 [core]
   excludesfile = /Users/kao/.gitignore_global
   editor = vi
-  ignorecase = false
+	ignorecase = false
 
 [color]
   ui = true
 
 [push]
   default = simple
+	autoSetupRemote = true
 
 [alias]
   st = status -sb
@@ -40,7 +41,7 @@
   showUntrackedFiles = all
 
 [pull]
-  rebase = true
+	rebase = true
 
 [rerere]
   enabled = true
@@ -56,3 +57,5 @@
 
 [includeIf "gitdir:~/code/pennylane/"]
   path = ~/code/pennylane/.gitconfig
+[blame]
+	ignoreRevsFile = .git-blame-ignore-revs
