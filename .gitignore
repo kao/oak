@@ -2,3 +2,5 @@ config/raycast/
 config/iterm2/
 
 .DS_Store
+
+config/nvim/lazy-lock.json
