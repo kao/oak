@@ -5,4 +5,11 @@ return {
       colorscheme = "catppuccin-mocha",
     },
   },
+
+  {
+    "folke/which-key.nvim",
+    opts = {
+      preset = "modern",
+    },
+  },
 }
