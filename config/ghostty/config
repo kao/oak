@@ -1,0 +1,8 @@
+term = xterm-256color
+theme = catppuccin-mocha
+
+font-family = "Hack Nerd Font"
+font-thicken = true
+font-size = 12
+
+mouse-hide-while-typing = true
