@@ -1,7 +1,8 @@
+.DS_Store
+
 config/raycast/
 config/iterm2/
-
-.DS_Store
+config/containers/
 
 config/nvim/lazy-lock.json
 config/nvim/lazyvim.json
