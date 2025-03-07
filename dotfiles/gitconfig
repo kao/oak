@@ -59,5 +59,12 @@
   path = ~/code/pennylane/.gitconfig
 [blame]
 	ignoreRevsFile = .git-blame-ignore-revs
+
 [init]
 	defaultBranch = main
+[branch]
+	sort = -committerdate
+[diff]
+	algorithm = histogram
+[fetch]
+	prune = true
