@@ -3,6 +3,8 @@
 config/raycast/
 config/iterm2/
 config/containers/
+config/yarn
+
 
 config/nvim/lazy-lock.json
 config/nvim/lazyvim.json
