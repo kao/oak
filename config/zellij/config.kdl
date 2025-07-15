@@ -11,11 +11,10 @@ keybinds {
     unbind "Ctrl b"
     bind "Ctrl s" { SwitchToMode "Tmux"; }
     // general stuff
-    bind "Alt n" { NewPane; }
-    bind "Alt Left" { NewPane "Left"; }
-    bind "Alt Right" { NewPane "Right"; }
-    bind "Alt Up" { NewPane "Up"; }
-    bind "Alt Down" { NewPane "Up"; }
+    bind "Alt Shift Left" { NewPane "Left"; }
+    bind "Alt Shift Right" { NewPane "Right"; }
+    bind "Alt Shift Up" { NewPane "Up"; }
+    bind "Alt Shift Down" { NewPane "Down"; }
     bind "Alt x" { CloseFocus; SwitchToMode "Normal"; }
     bind "Alt w" { ToggleFloatingPanes;}
     bind "Alt t" { NewTab;}
