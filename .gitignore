@@ -4,6 +4,7 @@ config/raycast/
 config/iterm2/
 config/containers/
 config/yarn
+config/github-copilot
 
 
 config/nvim/lazy-lock.json
