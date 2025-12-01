@@ -27,6 +27,8 @@ alias lta='lt -a'
 alias fvi='vim $(fzf --preview="bat --color=always {}")'
 alias cat='bat'
 
+alias git-clean="git fetch -p && git branch -vv | grep ': gone]' | awk '{print $1}' | xargs git branch -D 2>/dev/null || echo 'No dead branches found to delete'"
+
 alias reload!='source ~/.zshrc'
 
 # pennylane related
@@ -47,4 +49,4 @@ ssh-add --apple-load-keychain > /dev/null 2>&1
 
 eval "$(zoxide init --cmd j zsh)"
 eval "$(starship init zsh)"
-eval "$(zellij setup --generate-auto-start zsh)"
+# eval "$(zellij setup --generate-auto-start zsh)"

@@ -1,6 +1,6 @@
 [user]
   name = Flavien Cogez
-  email = flavien.cogez@gmail.com
+	email = flavien.cogez@pennylane.com
 
 [core]
   excludesfile = /Users/kao/.gitignore_global
@@ -68,3 +68,10 @@
 	algorithm = histogram
 [fetch]
 	prune = true
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
+[gpg]
+	program = gpg
