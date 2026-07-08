@@ -3,4 +3,5 @@
 -- Add any additional keymaps here
 
 -- Terminal mode: usable while inside Claude Code or any terminal buffer
-vim.keymap.set("t", "<C-e>", "<cmd>Neotree toggle<cr>", { desc = "Toggle file tree" })
+vim.keymap.set("t", "<Esc><Esc>", "<C-\\><C-n>", { desc = "Exit terminal mode (then use leader normally)" })
+vim.keymap.set({ "n", "v", "t" }, "<C-e>", "<cmd>Neotree toggle<cr>", { desc = "Toggle file tree" })
