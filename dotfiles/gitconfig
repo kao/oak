@@ -3,7 +3,7 @@
 	email = flavien.cogez@pennylane.com
 
 [core]
-  excludesfile = /Users/kao/.gitignore_global
+  excludesfile = ~/.gitignore_global
   editor = vi
 	ignorecase = false
 
