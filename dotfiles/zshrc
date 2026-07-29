@@ -15,10 +15,10 @@ source <(fzf --zsh)
 
 alias reload!='source ~/.zshrc'
 
-alias e='nvim'
 alias vi='nvim'
 alias vim='nvim'
-export EDITOR='e'
+alias emacs="open -a /Applications/Emacs.app"
+export EDITOR='emacs'
 
 alias ls='eza -lh --group-directories-first --icons --hyperlink'
 alias lsa='ls -a'
