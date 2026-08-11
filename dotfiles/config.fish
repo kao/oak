@@ -1,16 +1,20 @@
 # PATH
+fish_add_path (set -q ASDF_DATA_DIR; and echo $ASDF_DATA_DIR; or echo $HOME/.asdf)/shims
 fish_add_path /opt/homebrew/opt/libpq/bin
 fish_add_path /opt/homebrew/bin
 fish_add_path /usr/local/bin
 fish_add_path $HOME/.local/bin
-fish_add_path (set -q ASDF_DATA_DIR; and echo $ASDF_DATA_DIR; or echo $HOME/.asdf)/shims
 
 # env
 set -gx LANG en_US.UTF-8
 set -gx EDITOR emacs
+ulimit -n 10000
 
 # brew (login shell init)
 eval (/opt/homebrew/bin/brew shellenv)
+
+# asdf shims must come after brew shellenv to take priority
+set -gx PATH (set -q ASDF_DATA_DIR; and echo $ASDF_DATA_DIR; or echo $HOME/.asdf)/shims $PATH
 
 # fzf
 fzf --fish | source
