@@ -75,14 +75,6 @@ fi
 
 (ssh-add --apple-load-keychain > /dev/null 2>&1 &)
 
-# zoxide — cache init script, regenerate only when binary updates
-_zoxide_cache="$HOME/.cache/zsh/zoxide-init.zsh"
-if [[ ! -f "$_zoxide_cache" || "$commands[zoxide]" -nt "$_zoxide_cache" ]]; then
-  mkdir -p "${_zoxide_cache:h}"
-  zoxide init --cmd j zsh > "$_zoxide_cache"
-fi
-source "$_zoxide_cache"
-
 # starship — cache init script, regenerate only when binary updates
 _starship_cache="$HOME/.cache/zsh/starship-init.zsh"
 if [[ ! -f "$_starship_cache" || "$commands[starship]" -nt "$_starship_cache" ]]; then
@@ -106,3 +98,11 @@ function claude() {
     (cd ~/code/pennylane/jeancaisse && "$awslogin") && date +%s > "$stamp_file" && command claude "$@"
   fi
 }
+
+# zoxide — cache init script, regenerate only when binary updates
+_zoxide_cache="$HOME/.cache/zsh/zoxide-init.zsh"
+if [[ ! -f "$_zoxide_cache" || "$commands[zoxide]" -nt "$_zoxide_cache" ]]; then
+  mkdir -p "${_zoxide_cache:h}"
+  zoxide init --cmd j zsh > "$_zoxide_cache"
+fi
+source "$_zoxide_cache"
