@@ -1,23 +1,30 @@
 
-export ZSH="$HOME/.oh-my-zsh"
-plugins=(fzf-tab zsh-autosuggestions zsh-syntax-highlighting rails bundler)
-source $ZSH/oh-my-zsh.sh
-
 export LANG=en_US.UTF-8
+
 export PATH="/opt/homebrew/opt/libpq/bin:$PATH"
 export PATH="/opt/homebrew/bin:$PATH"
 export PATH="/usr/local/bin:$PATH"
-export PATH="~/.local/bin:$PATH"
+export PATH="$HOME/.local/bin:$PATH"
 export PATH="${ASDF_DATA_DIR:-$HOME/.asdf}/shims:$PATH"
 
-source <(fzf --zsh)
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+# plugins (no OMZ framework)
+autoload -Uz compinit && compinit -C
+source /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+source /opt/homebrew/share/zsh-fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh
+
+# fzf — cache init script, regenerate only when binary updates
+_fzf_cache="$HOME/.cache/zsh/fzf-init.zsh"
+if [[ ! -f "$_fzf_cache" || "$commands[fzf]" -nt "$_fzf_cache" ]]; then
+  mkdir -p "${_fzf_cache:h}"
+  fzf --zsh > "$_fzf_cache"
+fi
+source "$_fzf_cache"
 
 alias reload!='source ~/.zshrc'
 
 alias vi='nvim'
 alias vim='nvim'
-alias emacs="open -a /Applications/Emacs.app"
+alias emacs="open -a /Applications/Emacs.app &"
 export EDITOR='emacs'
 
 alias ls='eza -lh --group-directories-first --icons --hyperlink'
@@ -28,26 +35,74 @@ alias lta='lt -a'
 alias fvi='vim $(fzf --preview="bat --color=always {}")'
 alias cat='bat'
 
-alias git-clean="git fetch -p && git branch -vv | grep ': gone]' | awk '{print $1}' | xargs git branch -D 2>/dev/null || echo 'No dead branches found to delete'"
+alias git-clean="git fetch -p && git branch -vv | grep ': gone]' | awk '{print \$1}' | xargs git branch -D 2>/dev/null || echo 'No dead branches found to delete'"
 
-alias reload!='source ~/.zshrc'
+# rails aliases (from OMZ rails plugin)
+alias devlog='tail -f log/development.log'
+alias prodlog='tail -f log/production.log'
+alias testlog='tail -f log/test.log'
+alias rc='rails console'
+alias rcs='rails console --sandbox'
+alias rd='rails destroy'
+alias rdb='rails dbconsole'
+alias rdc='rails db:create'
+alias rdd='rails db:drop'
+alias rdm='rails db:migrate'
+alias rdmd='rails db:migrate:down'
+alias rdmr='rails db:migrate:redo'
+alias rdmrs='rails db:migrate:reset'
+alias rdms='rails db:migrate:status'
+
+# bundler aliases (from OMZ bundler plugin)
+alias ba="bundle add"
+alias bck="bundle check"
+alias bcn="bundle clean"
+alias be="bundle exec"
+alias bi="bundle install"
+alias bl="bundle list"
+alias bo="bundle open"
+alias bout="bundle outdated"
+alias bp="bundle package"
+alias bu="bundle update"
+alias bua="bundle update --all"
 
 # pennylane related
 if [ -f ~/code/pennylane/jeancaisse/docker.env ]; then
   source ~/code/pennylane/jeancaisse/docker.env
   export DD_TRACE_ENABLED=false
-  export PATH="$(brew --prefix)/opt/grep/libexec/gnubin:$PATH"
-  export PATH="$(brew --prefix)/opt/findutils/libexec/gnubin:$PATH"
-  export PATH="$(brew --prefix)/opt/gnu-sed/libexec/gnubin:$PATH"
-  export PATH="$(brew --prefix)/opt/coreutils/libexec/gnubin:$PATH"
+  export PATH="/opt/homebrew/opt/grep/libexec/gnubin:/opt/homebrew/opt/findutils/libexec/gnubin:/opt/homebrew/opt/gnu-sed/libexec/gnubin:/opt/homebrew/opt/coreutils/libexec/gnubin:$PATH"
 fi
 
-# avoid having to type the password
-ssh-add --apple-load-keychain > /dev/null 2>&1
+(ssh-add --apple-load-keychain > /dev/null 2>&1 &)
 
+# zoxide — cache init script, regenerate only when binary updates
+_zoxide_cache="$HOME/.cache/zsh/zoxide-init.zsh"
+if [[ ! -f "$_zoxide_cache" || "$commands[zoxide]" -nt "$_zoxide_cache" ]]; then
+  mkdir -p "${_zoxide_cache:h}"
+  zoxide init --cmd j zsh > "$_zoxide_cache"
+fi
+source "$_zoxide_cache"
 
-eval "$(zoxide init --cmd j zsh)"
-eval "$(starship init zsh)"
-# eval "$(zellij setup --generate-auto-start zsh)"
+# starship — cache init script, regenerate only when binary updates
+_starship_cache="$HOME/.cache/zsh/starship-init.zsh"
+if [[ ! -f "$_starship_cache" || "$commands[starship]" -nt "$_starship_cache" ]]; then
+  mkdir -p "${_starship_cache:h}"
+  starship init zsh > "$_starship_cache"
+fi
+source "$_starship_cache"
 
-if command -v wt >/dev/null 2>&1; then eval "$(command wt config shell init zsh)"; fi
+function claude() {
+  local awslogin=~/code/pennylane/jeancaisse/bin/awslogin
+  if [[ ! -f "$awslogin" ]]; then
+    command claude "$@"
+    return
+  fi
+  local stamp_file=~/.awslogin_last_run
+  local now
+  now=$(date +%s)
+  if [[ -f "$stamp_file" ]] && (( now - $(cat "$stamp_file") < 43200 )); then
+    command claude "$@"
+  else
+    (cd ~/code/pennylane/jeancaisse && "$awslogin") && date +%s > "$stamp_file" && command claude "$@"
+  fi
+}
