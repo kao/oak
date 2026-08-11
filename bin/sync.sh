@@ -40,6 +40,9 @@ link "$OAK/dotfiles/gitconfig"        "$HOME/.gitconfig"
 link "$OAK/dotfiles/gitignore_global" "$HOME/.gitignore_global"
 link "$OAK/dotfiles/zshrc"            "$HOME/.zshrc"
 
+mkdir -p "$CONFIG/fish"
+link "$OAK/dotfiles/config.fish" "$CONFIG/fish/config.fish"
+
 defaults write com.googlecode.iterm2 PrefsCustomFolder -string "$OAK/config/iterm2"
 defaults write com.googlecode.iterm2 LoadPrefsFromCustomFolder -bool true
 echo "iterm2 prefs -> $OAK/config/iterm2"
