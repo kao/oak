@@ -85,8 +85,7 @@ ssh-add --apple-load-keychain >/dev/null 2>&1 &
 
 # claude wrapper (aws login)
 function claude
-    set awslogin ~/code/pennylane/jeancaisse/bin/awslogin
-    if not test -f $awslogin
+    if not command -q awslogin
         command claude $argv
         return
     end
@@ -95,6 +94,6 @@ function claude
     if test -f $stamp_file; and test (math "$now - "(cat $stamp_file)) -lt 43200
         command claude $argv
     else
-        cd ~/code/pennylane/jeancaisse; and $awslogin; and date +%s > $stamp_file; and command claude $argv
+        awslogin; and date +%s > $stamp_file; and command claude $argv
     end
 end
