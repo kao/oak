@@ -1,14 +1,12 @@
 #!/usr/bin/env bash
 set -euo pipefail
-OAK="$(cd "$(dirname "$0")/.." && pwd)"
+OAK="$(cd "$(dirname "$0")/.." && pwd -P)"
 
-brew install \
-  fzf \
-  zoxide \
-  starship \
-  eza \
-  bat \
-  neovim \
-  --quiet 2>&1 | grep -v "already installed" || true
+if ! command -v brew >/dev/null; then
+  echo "Homebrew is required: https://brew.sh" >&2
+  exit 1
+fi
 
-bash "$OAK/bin/sync.sh"
+brew bundle --file "$OAK/Brewfile"
+
+bash "$OAK/bin/sync.sh" "$@"
