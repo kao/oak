@@ -70,9 +70,9 @@ alias bua 'bundle update --all'
 # pennylane
 if test -f ~/code/pennylane/jeancaisse/docker.env
     # parse export KEY=VALUE lines directly — no bash needed
-    for line in (grep '^export ' ~/code/pennylane/jeancaisse/docker.env)
-        set -l parts (string split '=' (string replace 'export ' '' $line) --max 2)
-        set -gx $parts[1] $parts[2]
+    for line in (string match -r '^export .*' < ~/code/pennylane/jeancaisse/docker.env)
+        set -l parts (string split -m 1 '=' (string replace 'export ' '' $line))
+        set -gx $parts[1] (string trim -c '"\'' -- $parts[2])
     end
     set -gx DD_TRACE_ENABLED false
     fish_add_path /opt/homebrew/opt/grep/libexec/gnubin
