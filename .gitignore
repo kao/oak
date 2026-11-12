@@ -1,7 +1,6 @@
 .DS_Store
 
 config/raycast/
-config/iterm2/
 config/containers/
 config/yarn
 config/github-copilot
