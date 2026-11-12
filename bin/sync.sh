@@ -35,7 +35,6 @@ link "$OAK/config/nvim"               "$CONFIG/nvim"
 link "$OAK/config/zellij"             "$CONFIG/zellij"
 link "$OAK/config/starship.toml"      "$CONFIG/starship.toml"
 link "$OAK/config/iterm2"             "$CONFIG/iterm2"
-link "$OAK/config/herdr/config.toml"  "$CONFIG/herdr/config.toml"
 
 link "$OAK/dotfiles/gitconfig"        "$HOME/.gitconfig"
 link "$OAK/dotfiles/gitignore_global" "$HOME/.gitignore_global"
