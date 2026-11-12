@@ -21,4 +21,5 @@ brew "gnu-sed"
 brew "grep"
 
 # apps
+cask "kitty"
 cask "font-hack-nerd-font"
