@@ -63,7 +63,7 @@ alias lt 'eza --tree --level=2 --long --icons --git'
 alias lta 'lt -a'
 alias fvi 'vim (fzf --preview="bat --color=always {}")'
 alias cat bat
-alias git-clean 'git fetch -p; and git branch -vv | grep \': gone]\' | awk \'{print $1}\' | xargs git branch -D 2>/dev/null; or echo \'No dead branches found to delete\''
+alias git-clean 'git clean-gone'
 
 # rails
 alias devlog 'tail -f log/development.log'
