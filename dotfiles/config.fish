@@ -74,6 +74,7 @@ if test -f ~/code/pennylane/jeancaisse/docker.env
         set -l parts (string split '=' (string replace 'export ' '' $line) --max 2)
         set -gx $parts[1] $parts[2]
     end
+    set -gx DD_TRACE_ENABLED false
     fish_add_path /opt/homebrew/opt/grep/libexec/gnubin
     fish_add_path /opt/homebrew/opt/findutils/libexec/gnubin
     fish_add_path /opt/homebrew/opt/gnu-sed/libexec/gnubin

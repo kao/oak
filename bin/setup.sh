@@ -3,8 +3,6 @@ set -euo pipefail
 OAK="$(cd "$(dirname "$0")/.." && pwd)"
 
 brew install \
-  zsh-autosuggestions \
-  zsh-fast-syntax-highlighting \
   fzf \
   zoxide \
   starship \
