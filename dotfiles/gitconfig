@@ -1,6 +1,6 @@
 [user]
   name = Flavien Cogez
-	email = flavien.cogez@pennylane.com
+	email = flavien.cogez@gmail.com
 
 [core]
   excludesfile = ~/.gitignore_global
