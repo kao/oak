@@ -94,17 +94,20 @@ alias bp 'bundle package'
 alias bu 'bundle update'
 alias bua 'bundle update --all'
 
-# claude wrapper (aws login)
+# claude wrapper (aws login at most every 12h)
 function claude
     if not command -q awslogin
         command claude $argv
         return
     end
-    set stamp_file ~/.awslogin_last_run
-    set now (date +%s)
-    if test -f $stamp_file; and test (math "$now - "(cat $stamp_file)) -lt 43200
+    set -l stamp_file ~/.awslogin_last_run
+    set -l last 0
+    if test -f $stamp_file
+        set last (string match -r '^\d+$' <$stamp_file; or echo 0)
+    end
+    if test (math (date +%s) - $last) -lt 43200
         command claude $argv
     else
-        awslogin; and date +%s > $stamp_file; and command claude $argv
+        awslogin; and date +%s >$stamp_file; and command claude $argv
     end
 end
