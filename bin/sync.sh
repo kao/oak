@@ -32,7 +32,6 @@ mkdir -p "$CONFIG"
 
 link "$OAK/config/kitty"              "$CONFIG/kitty"
 link "$OAK/config/nvim"               "$CONFIG/nvim"
-link "$OAK/config/zellij"             "$CONFIG/zellij"
 link "$OAK/config/starship.toml"      "$CONFIG/starship.toml"
 
 link "$OAK/dotfiles/gitconfig"        "$HOME/.gitconfig"
