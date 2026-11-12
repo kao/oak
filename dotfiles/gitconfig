@@ -1,77 +1,87 @@
 [user]
-  name = Flavien Cogez
+	name = Flavien Cogez
 	email = flavien.cogez@gmail.com
 
 [core]
-  excludesfile = ~/.gitignore_global
-  editor = vim
-	ignorecase = false
+	excludesfile = ~/.gitignore_global
+	editor = vim
 
 [color]
-  ui = true
+	ui = true
 
 [push]
-  default = simple
+	default = simple
 	autoSetupRemote = true
+	followTags = true
 
 [alias]
-  st = status -sb
-  df = diff --color
-  # last tag
-  lt = describe --abbrev=0
+	st = status -sb
+	df = diff --color
+	# last tag
+	lt = describe --abbrev=0
 
-  ci = commit
-  co = checkout
-  cp = cherry-pick
-  rbc = rebase --continue
-  ph = push
-  pl = pull
+	ci = commit
+	co = checkout
+	cp = cherry-pick
+	rbc = rebase --continue
+	ph = push
+	pl = pull
 
-  stash-all = stash save --include-untracked
+	stash-all = stash push --include-untracked
 
-  br = for-each-ref --count=20 --sort=-committerdate refs/heads/ --format='%(HEAD) (%(color:green)%(committerdate:relative)%(color:reset)) %(color:yellow)%(refname:short)%(color:reset) [%(color:red)%(objectname:short)%(color:reset)] - %(contents:subject) by %(authorname)'
-  lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
+	br = for-each-ref --count=20 --sort=-committerdate refs/heads/ --format='%(HEAD) (%(color:green)%(committerdate:relative)%(color:reset)) %(color:yellow)%(refname:short)%(color:reset) [%(color:red)%(objectname:short)%(color:reset)] - %(contents:subject) by %(authorname)'
+	lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
 
-  # delete last commit
-  undo = reset --soft HEAD~1
+	# delete last commit
+	undo = reset --soft HEAD~1
 
-  pf = push --force-with-lease
+	pf = push --force-with-lease
+
 
 [status]
-  showUntrackedFiles = all
+	showUntrackedFiles = all
 
 [pull]
 	rebase = true
 
 [rerere]
-  enabled = true
-
-[gc]
- auto = 0
+	enabled = true
 
 [rebase]
-  autosquash = true
+	autosquash = true
+	autoStash = true
+	updateRefs = true
+
+[merge]
+	conflictstyle = zdiff3
+
+[commit]
+	verbose = true
 
 [github]
-  user = kao
+	user = kao
 
 [includeIf "gitdir:~/code/pennylane/"]
-  path = ~/code/pennylane/.gitconfig
+	path = ~/code/pennylane/.gitconfig
+
 [blame]
 	ignoreRevsFile = .git-blame-ignore-revs
 
 [init]
 	defaultBranch = main
+
 [branch]
 	sort = -committerdate
+
 [diff]
 	algorithm = histogram
+	colorMoved = default
+
 [fetch]
 	prune = true
+
 [filter "lfs"]
 	clean = git-lfs clean -- %f
 	smudge = git-lfs smudge -- %f
 	process = git-lfs filter-process
 	required = true
-[gpg]
-	program = gpg
