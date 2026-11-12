@@ -5,7 +5,7 @@ fish_add_path -g /usr/local/bin /opt/homebrew/opt/libpq/bin $HOME/.local/bin
 
 # env
 set -gx LANG en_US.UTF-8
-set -gx EDITOR vim
+set -gx EDITOR nvim
 ulimit -n 10000
 
 # pennylane
