@@ -13,11 +13,11 @@
 -- Automatically switch between expanded and normal display
 \x auto
 
--- Set TCP keepalive idle time to 1 second
-SET tcp_keepalives_idle = 1;
-
 -- Ignore duplicate commands in history
 \set HISTCONTROL ignoredups
+
+-- One history file per database
+\set HISTFILE ~/.psql_history-:DBNAME
 
 -- Use uppercase for SQL keywords in autocompletion
 \set COMP_KEYWORD_CASE upper
