@@ -1,29 +1,56 @@
-# PATH
-fish_add_path (set -q ASDF_DATA_DIR; and echo $ASDF_DATA_DIR; or echo $HOME/.asdf)/shims
-fish_add_path /opt/homebrew/opt/libpq/bin
-fish_add_path /opt/homebrew/bin
-fish_add_path /usr/local/bin
-fish_add_path $HOME/.local/bin
+# PATH — fish_add_path prepends, so later calls win.
+# -g keeps paths session-scoped instead of persisting them in universal fish_user_paths.
+/opt/homebrew/bin/brew shellenv fish | source
+fish_add_path -g /usr/local/bin /opt/homebrew/opt/libpq/bin $HOME/.local/bin
 
 # env
 set -gx LANG en_US.UTF-8
 set -gx EDITOR emacs
 ulimit -n 10000
 
-# brew (login shell init)
-eval (/opt/homebrew/bin/brew shellenv)
+# pennylane
+if test -f ~/code/pennylane/jeancaisse/docker.env
+    # parse export KEY=VALUE lines directly — no bash needed
+    for line in (string match -r '^export .*' < ~/code/pennylane/jeancaisse/docker.env)
+        set -l parts (string split -m 1 '=' (string replace 'export ' '' $line))
+        set -gx $parts[1] (string trim -c '"\'' -- $parts[2])
+    end
+    set -gx DD_TRACE_ENABLED false
+    fish_add_path -g \
+        /opt/homebrew/opt/grep/libexec/gnubin \
+        /opt/homebrew/opt/findutils/libexec/gnubin \
+        /opt/homebrew/opt/gnu-sed/libexec/gnubin \
+        /opt/homebrew/opt/coreutils/libexec/gnubin
+end
 
-# asdf shims must come after brew shellenv to take priority
-set -gx PATH (set -q ASDF_DATA_DIR; and echo $ASDF_DATA_DIR; or echo $HOME/.asdf)/shims $PATH
+# asdf shims last so they take priority over brew
+fish_add_path -gm (set -q ASDF_DATA_DIR; and echo $ASDF_DATA_DIR; or echo $HOME/.asdf)/shims
 
-# fzf
-fzf --fish | source
+status is-interactive; or return
 
-# zoxide
-zoxide init --cmd j fish | source
+# Source a tool's init script from cache; regenerate when the binary changes (e.g. brew upgrade).
+function __oak_source_init --argument-names tool
+    set -l bin (command -s $tool); or return
+    set -l real (path resolve $bin)
+    set -l cache $HOME/.cache/fish/oak-init-$tool.fish
+    if not test -f $cache; or test "$(head -n1 $cache)" != "# $real"
+        mkdir -p (path dirname $cache)
+        begin
+            echo "# $real"
+            $argv[2..]
+        end >$cache
+    end
+    source $cache
+end
 
-# starship
-starship init fish | source
+__oak_source_init fzf fzf --fish
+__oak_source_init zoxide zoxide init --cmd j fish
+__oak_source_init starship starship init fish --print-full-init
+functions -e __oak_source_init
+
+# ssh keychain (background, non-blocking)
+ssh-add --apple-load-keychain >/dev/null 2>&1 &
+disown 2>/dev/null
 
 # aliases
 alias reload! 'source ~/.config/fish/config.fish'
@@ -66,23 +93,6 @@ alias bout 'bundle outdated'
 alias bp 'bundle package'
 alias bu 'bundle update'
 alias bua 'bundle update --all'
-
-# pennylane
-if test -f ~/code/pennylane/jeancaisse/docker.env
-    # parse export KEY=VALUE lines directly — no bash needed
-    for line in (string match -r '^export .*' < ~/code/pennylane/jeancaisse/docker.env)
-        set -l parts (string split -m 1 '=' (string replace 'export ' '' $line))
-        set -gx $parts[1] (string trim -c '"\'' -- $parts[2])
-    end
-    set -gx DD_TRACE_ENABLED false
-    fish_add_path /opt/homebrew/opt/grep/libexec/gnubin
-    fish_add_path /opt/homebrew/opt/findutils/libexec/gnubin
-    fish_add_path /opt/homebrew/opt/gnu-sed/libexec/gnubin
-    fish_add_path /opt/homebrew/opt/coreutils/libexec/gnubin
-end
-
-# ssh keychain (background, non-blocking)
-ssh-add --apple-load-keychain >/dev/null 2>&1 &
 
 # claude wrapper (aws login)
 function claude
